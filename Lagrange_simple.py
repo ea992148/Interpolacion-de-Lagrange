@@ -48,11 +48,11 @@ def lagrange_simple(x_points, y_points, x):
 # ============================================================
 if __name__ == "__main__":
     # Datos del PDF: Torque vs RPM
-    rpm = [1000, 1500, 2000]
-    torque = [80, 95, 110]
+    rpm = [1000, 1500, 2000] #Datos del eje X
+    torque = [80, 95, 110] #Datos del eje Y
     
     # Estimar torque a 1750 RPM
-    x_objetivo = 1750
+    x_objetivo = 1750 #Valor deseado
     resultado = lagrange_simple(rpm, torque, x_objetivo)
     
     print("=" * 50)
