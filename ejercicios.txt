@@ -1,0 +1,129 @@
+# Hoja de Ejercicios — Interpolación de Lagrange
+## Aplicaciones en Ingeniería Mecánica Automotriz
+
+---
+
+## INSTRUCCIONES GENERALES
+
+- Todos los ejercicios se resuelven con las funciones vistas en clase:
+  - `lagrange_simple(x_points, y_points, x)` → para un solo valor
+  - `lagrange_multiple(x_points, y_points, x_values)` → para varios valores
+  - `plot_lagrange(...)` → para graficar
+
+---
+
+## EJERCICIO 1: Interpolación Simple
+
+**Datos de torque vs RPM de un motor:**
+
+| RPM (x) | Torque (Nm) (y) |
+|---------|-----------------|
+| 1000 | 80 |
+| 1500 | 95 |
+| 2000 | 110 |
+
+**Indicaciones:**
+
+a) Estimar el torque a 1200 RPM.
+
+b) Estimar el torque a 1400 RPM.
+
+c) Estimar el torque a 1600 RPM.
+
+d) Estimar el torque a 1800 RPM.
+
+e) ¿El torque aumenta o disminuye con las RPM en este rango?
+
+**Código sugerido:**
+
+```python
+rpm = [1000, 1500, 2000]
+torque = [80, 95, 110]
+
+for x in [1200, 1400, 1600, 1800]:
+    print(f"{x} RPM → {lagrange_simple(rpm, torque, x):.2f} Nm")
+```
+
+---
+
+## EJERCICIO 2: Interpolación Múltiple
+
+**Datos de consumo de combustible:**
+
+| RPM (x) | Consumo (ml/min) (y) |
+|---------|----------------------|
+| 1200 | 340 |
+| 1500 | 395 |
+| 1800 | 445 |
+| 2100 | 500 |
+
+**Indicaciones:**
+
+a) Estimar el consumo a 1650 RPM.
+
+b) Generar una tabla de consumo cada 100 RPM entre 1200 y 2100.
+
+c) ¿En qué RPM el consumo es aproximadamente 420 ml/min?
+
+d) ¿El consumo crece de forma lineal?
+
+**Código sugerido:**
+
+```python
+rpm = [1200, 1500, 1800, 2100]
+consumo = [340, 395, 445, 500]
+
+# a)
+print(f"Consumo a 1650 RPM: {lagrange_simple(rpm, consumo, 1650):.2f}")
+
+# b)
+rango = np.arange(1200, 2101, 100)
+valores = lagrange_multiple(rpm, consumo, rango)
+for r, v in zip(rango, valores):
+    print(f"{r} → {v:.2f}")
+```
+
+---
+
+## EJERCICIO 3: Aplicación al Motor
+
+**Datos del banco de pruebas:**
+
+| RPM (x) | Torque (Nm) (y) |
+|---------|-----------------|
+| 1500 | 180 |
+| 2500 | 220 |
+| 3500 | 210 |
+| 4500 | 170 |
+
+**Indicaciones:**
+
+a) Estimar el torque a 3000 RPM.
+
+b) Generar tabla cada 500 RPM entre 1500 y 4500.
+
+c) ¿En qué RPM se alcanza el torque máximo según el polinomio?
+
+d) ¿Qué pasa si estimas el torque a 5000 RPM? ¿Es confiable?
+
+**Código sugerido:**
+
+```python
+rpm = [1500, 2500, 3500, 4500]
+torque = [180, 220, 210, 170]
+
+# a)
+print(f"Torque a 3000 RPM: {lagrange_simple(rpm, torque, 3000):.2f}")
+
+# b)
+rango = np.arange(1500, 4501, 500)
+valores = lagrange_multiple(rpm, torque, rango)
+for r, v in zip(rango, valores):
+    print(f"{r} → {v:.2f}")
+
+# c) Buscar el máximo
+rango_fino = np.arange(1500, 4501, 10)
+valores_finos = lagrange_multiple(rpm, torque, rango_fino)
+idx_max = np.argmax(valores_finos)
+print(f"Máximo en {rango_fino[idx_max]} RPM → {valores_finos[idx_max]:.2f} Nm")
+```
