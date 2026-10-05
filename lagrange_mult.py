@@ -64,7 +64,7 @@ if __name__ == "__main__":
     torque_data = np.array([180, 220, 210, 170])
     
     # Estimar torque en varios puntos
-    rpm_range = np.arange(1500, 4501, 250)
+    rpm_range = np.arange(1500, 4501, 250) #(valor inicial, valor final, salto entra valores)
     torques = lagrange_multiple(rpm_data, torque_data, rpm_range)
     
     print("=" * 50)
